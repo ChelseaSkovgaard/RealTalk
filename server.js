@@ -39,12 +39,12 @@ app.post('/users', (request,response) => {
 });
 
 app.post('/questions', (request,response) => {
-  const { question, user_id } = request.body;
-  console.log(user_id, question);
-  const questionInfo = {user_id:user_id, question_text:question, created_at: new Date}
-  database('questions').insert(question)
+  const { user_id, question_text } = request.body;
+  console.log(user_id, question_text);
+  const questionInfo = {user_id:user_id, question_text:question_text, created_at: new Date}
+  database('questions').insert(questionInfo)
   .then(function() {
-    database(questions).select()
+    database('questions').select()
       .then(function(questions){
         response.status(200).json(questions);
       })
