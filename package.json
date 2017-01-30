@@ -1,0 +1,22 @@
+{
+  "name": "realtalk",
+  "version": "1.0.0",
+  "description": "A real time polling application.",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChelseaSkovgaard/RealTalk.git"
+  },
+  "author": "Chelsea Skovgaard & Nick Chambers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChelseaSkovgaard/RealTalk/issues"
+  },
+  "homepage": "https://github.com/ChelseaSkovgaard/RealTalk#readme",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
+}
