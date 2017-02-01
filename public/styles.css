@@ -41,3 +41,8 @@ label {
   margin-left: 100px;
   margin-top: 5px;
 }
+
+.questions-container {
+  height: 100px;
+  width: 200px;
+}
