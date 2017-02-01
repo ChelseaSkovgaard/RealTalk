@@ -75,10 +75,11 @@ app.get('/answers', (request, response) => {
   });
 });
 
-app.get('/:id', (request, response) => {
-  database('questions').where('id', request.params.id).select()
-    .then(function(){
-      response.redirect('/questions');
+app.get('/poll/:id', (request, response) => {
+  const { id } = request.params
+  database.raw(`select questions.question_text, answers.answer_text FROM questions, answers WHERE questions.id = ${id} and answers.question_id = ${id}` )
+    .then(function(poll) {
+      response.status(200).json(poll)
     });
 });
 
