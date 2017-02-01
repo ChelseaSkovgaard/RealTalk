@@ -20,9 +20,9 @@ app.get('/', (request, response) => {
   response.sendfile(__dirname + '/public/index.html')
 })
 
-app.get('/signin', (request, response) => {
-  response.sendfile(__dirname + '/public/signin.html')
-})
+// app.get('/signin', (request, response) => {
+//   response.sendfile(__dirname + '/public/signin.html')
+// })
 
 app.post('/users', (request,response) => {
   const { name } = request.body;
@@ -80,7 +80,11 @@ app.get('/poll/:id', (request, response) => {
   database.raw(`select questions.question_text, answers.answer_text FROM questions, answers WHERE questions.id = ${id} and answers.question_id = ${id}` )
     .then(function(poll) {
       response.status(200).json(poll)
-    });
+    })
+    .then(function() {
+      response.redirect('/public/signin')
+    })
+
 });
 
 app.listen(app.get('port'), () => {
