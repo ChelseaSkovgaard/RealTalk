@@ -39,27 +39,25 @@ app.post('/users', (request,response) => {
 
 app.post('/questions', (request,response) => {
   const { question_text, answer_text } = request.body;
-  console.log(answer_text)
   const questionInfo = {question_text:question_text, created_at: new Date}
   var id = database('questions').returning('id').insert(questionInfo)
   .then(function(id) {
     var parsedId = parseInt(id[0])
     answer_text.forEach((m) => {
-      console.log(m)
-      database('answers').insert({answer_text: m, question_id: parsedId })
-      .then(function(response) {
-      database('answers').select()
-        .then(function(answers, response) {
+       database('answers').insert({answer_text: m, question_id: parsedId })
+       .then(function(data) {
+       })
+      })
+    }) .then(function() {
+        database('answers').select()
+        .then(function(answers){
           response.status(200).json(answers)
         })
-      .catch(function(error) {
-        response.status(404);
-      });
-  });
-});h i 
+      })
+    .catch(function(error) {
+    response.status(404);
+  })
 });
-});
-
 
 app.get('/questions', (request, response) => {
   database('questions').select()
@@ -78,7 +76,7 @@ app.get('/answers', (request, response) => {
 app.get('/:id', (request, response) => {
   database('questions').where('id', request.params.id).select()
     .then(function(){
-      response.redirect('/signin');
+      response.redirect('/questions');
     });
 });
 

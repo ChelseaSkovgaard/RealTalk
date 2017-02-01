@@ -1,7 +1,7 @@
 $('.question-form').on('submit', function(e) {
   (e).preventDefault();
   var questionText = $('#question-input').val()
-  var inputArr = Array.from($('.answer-inputs')).map((e) => e.value)
+  var inputArr = Array.from($('.answer-inputs')).map((m) => m.value)
   $.ajax({
     type: 'POST',
     url: '/questions',
