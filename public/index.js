@@ -4,7 +4,7 @@ $(document).ready(function(){
     url: '/questions'
   }).then(function(response) {
     response.forEach(function(m) {
-      $('.questions-container').append(`<p>${m.question_text}</p>`)
+      $('.questions-container').append(`<p>${m.question_text}</p><a href=/poll/${m.id}>click here</a>`)
     })
   });
 })
