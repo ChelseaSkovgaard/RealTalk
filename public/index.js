@@ -2,11 +2,6 @@ $('.question-form').on('submit', function(e) {
   (e).preventDefault();
   var questionText = $('#question-input').val()
   var inputArr = Array.from($('.answer-inputs')).map((e) => e.value)
-  console.log(inputArr)
-
-
-
-
   $.ajax({
     type: 'POST',
     url: '/questions',
