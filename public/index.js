@@ -11,5 +11,5 @@ $('.question-form').on('submit', function(e) {
     }
   }).then(function(response) {
     console.log(response)
-  })
-})
+  });
+});
