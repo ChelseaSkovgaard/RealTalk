@@ -65,15 +65,22 @@ app.get('/questions', (request, response) => {
   database('questions').select()
     .then(function(questions) {
       response.status(200).json(questions)
-    })
-})
+    });
+});
 
 app.get('/answers', (request, response) => {
   database('answers').select()
-  .then(function(questions) {
-    response.status(200).json(questions)
-  })
-})
+  .then(function(answers) {
+    response.status(200).json(answers)
+  });
+});
+
+app.get('/:id', (request, response) => {
+  database('questions').where('id', request.params.id).select()
+    .then(function(){
+      response.redirect('/signin');
+    });
+});
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
