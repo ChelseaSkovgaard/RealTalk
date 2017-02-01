@@ -24,7 +24,6 @@ app.get('/signin', (request, response) => {
 
 app.post('/users', (request,response) => {
   const { name } = request.body;
-  console.log(request.body.name)
   const user = {name: name}
   database('users').insert(user)
   .then(function() {
@@ -39,19 +38,22 @@ app.post('/users', (request,response) => {
 });
 
 app.post('/questions', (request,response) => {
-  const { question_text } = request.body;
-  console.log(question_text);
+  const { question_text, answer_text } = request.body;
   const questionInfo = {question_text:question_text, created_at: new Date}
-  database('questions').insert(questionInfo)
-  .then(function() {
-    database('questions').select()
-      .then(function(questions){
-        response.status(200).json(questions);
-      })
+  var id = database('questions').returning('id').insert(questionInfo)
+  .then(function(id) {
+    var parsedId = parseInt(id[0])
+    database('answers').insert({answer_text: answer_text, question_id: parsedId })
+      .then(function() {
+          database('answers').select()
+          .then(function(answers) {
+        response.status(200).json(answers)
+        })
       .catch(function(error) {
         response.status(404);
       });
   });
+});
 });
 
 app.get('/questions', (request, response) => {
