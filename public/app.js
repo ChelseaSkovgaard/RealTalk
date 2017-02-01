@@ -56,8 +56,3 @@ $(document).ready(function() {
 
   retrieve_profile();
 });
-
-$('.question-form').on('submit', function(e) {
-  console.log('click that shit bro')
-  (e).preventDefault();
-})

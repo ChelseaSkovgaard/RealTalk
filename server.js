@@ -24,7 +24,6 @@ app.get('/signin', (request, response) => {
 
 app.post('/users', (request,response) => {
   const { name } = request.body;
-  console.log(request.body.name)
   const user = {name: name}
   database('users').insert(user)
   .then(function() {
@@ -39,19 +38,46 @@ app.post('/users', (request,response) => {
 });
 
 app.post('/questions', (request,response) => {
-  const { user_id, question_text } = request.body;
-  console.log(user_id, question_text);
-  const questionInfo = {user_id:user_id, question_text:question_text, created_at: new Date}
-  database('questions').insert(questionInfo)
-  .then(function() {
-    database('questions').select()
-      .then(function(questions){
-        response.status(200).json(questions);
+  const { question_text, answer_text } = request.body;
+  const questionInfo = {question_text:question_text, created_at: new Date}
+  var id = database('questions').returning('id').insert(questionInfo)
+  .then(function(id) {
+    var parsedId = parseInt(id[0])
+    answer_text.forEach((m) => {
+       database('answers').insert({answer_text: m, question_id: parsedId })
+       .then(function(data) {
+       })
       })
-      .catch(function(error) {
-        response.status(404);
-      });
+    }) .then(function() {
+        database('answers').select()
+        .then(function(answers){
+          response.status(200).json(answers)
+        })
+      })
+    .catch(function(error) {
+    response.status(404);
+  })
+});
+
+app.get('/questions', (request, response) => {
+  database('questions').select()
+    .then(function(questions) {
+      response.status(200).json(questions)
+    });
+});
+
+app.get('/answers', (request, response) => {
+  database('answers').select()
+  .then(function(answers) {
+    response.status(200).json(answers)
   });
+});
+
+app.get('/:id', (request, response) => {
+  database('questions').where('id', request.params.id).select()
+    .then(function(){
+      response.redirect('/questions');
+    });
 });
 
 app.listen(app.get('port'), () => {

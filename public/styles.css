@@ -27,7 +27,7 @@ label {
 
 }
 
-.question-inputs {
+.question-inputs, .answer-inputs {
   width: 10vh;
   display: block;
   margin-left: 100px;
@@ -36,6 +36,8 @@ label {
   box-shadow: 5px 5px 2px #888888;
 }
 
-button {
+.submit-btn {
   border-radius: 5px;
+  margin-left: 100px;
+  margin-top: 5px;
 }
