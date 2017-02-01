@@ -5,12 +5,14 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 const bodyParser = require('body-parser');
+const socketIo = require('socket.io');
+// const io = socketIo(server);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('port', process.env.PORT || 3000);
-app.locals.title = 'Real Time';
+app.locals.title = 'Real Talk';
 
 app.use(express.static(path.join(__dirname, '/public')))
 
